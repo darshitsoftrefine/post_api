@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
-import 'model_display.dart';
 
 class CreatePostApiPage extends StatefulWidget {
   const CreatePostApiPage({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class _CreatePostApiPageState extends State<CreatePostApiPage> {
   Future<Post>? _futureUser;
 
   List<Post> samplePosts = [];
-  List<DisplayUsers> samplePostsdisp = [];
+  List<Post> samplePostsdisp = [];
 
 
   @override
@@ -186,7 +185,7 @@ class _CreatePostApiPageState extends State<CreatePostApiPage> {
     }
   }
 
-  Future<List<DisplayUsers>> getData() async {
+  Future<List<Post>> getData() async {
     final response =
     await http.get(Uri.parse('https://crudcrud.com/api/4cc9ae5f9f3a4b7c905251ec218bc40b/trial'));
     var data = jsonDecode(response.body.toString());
@@ -194,7 +193,7 @@ print("got data ");
 samplePostsdisp.clear();
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in data) {
-        samplePostsdisp.add(DisplayUsers.fromJson(index));
+        samplePostsdisp.add(Post.fromJson(index));
       }
       return samplePostsdisp;
     } else {
